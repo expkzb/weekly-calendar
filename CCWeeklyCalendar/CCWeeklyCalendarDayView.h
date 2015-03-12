@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CCWeeklyCalendarBusyBarView.h"
 
 @interface CCWeeklyCalendarDayView : UIView
 @property (nonatomic, strong) UILabel *weekDayLabel;
 @property (nonatomic, strong) UILabel *dayLabel;
 @property (nonatomic, strong) UILabel *bottomLabel;
 @property (nonatomic, strong) UILabel *rightLabel;
+@property (nonatomic, strong) CCWeeklyCalendarBusyBarView *busyBarView;
 @end

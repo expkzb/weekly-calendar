@@ -18,6 +18,7 @@
 		8806AB481AA8357800E6A50D /* CCWeeklyCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8806AB471AA8357800E6A50D /* CCWeeklyCalendar.m */; };
 		8806AB4B1AA83B3500E6A50D /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 8806AB4A1AA83B3500E6A50D /* NSDate+Utilities.m */; };
 		8806AB4E1AA84E5C00E6A50D /* CCWeeklyCalendarDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8806AB4D1AA84E5C00E6A50D /* CCWeeklyCalendarDayView.m */; };
+		88208BBD1AAEF22A00A0E82A /* CCWeeklyCalendarBusyBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88208BBC1AAEF22A00A0E82A /* CCWeeklyCalendarBusyBarView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,8 @@
 		8806AB4A1AA83B3500E6A50D /* NSDate+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utilities.m"; sourceTree = "<group>"; };
 		8806AB4C1AA84E5B00E6A50D /* CCWeeklyCalendarDayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCWeeklyCalendarDayView.h; sourceTree = "<group>"; };
 		8806AB4D1AA84E5C00E6A50D /* CCWeeklyCalendarDayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCWeeklyCalendarDayView.m; sourceTree = "<group>"; };
+		88208BBB1AAEF22A00A0E82A /* CCWeeklyCalendarBusyBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCWeeklyCalendarBusyBarView.h; sourceTree = "<group>"; };
+		88208BBC1AAEF22A00A0E82A /* CCWeeklyCalendarBusyBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCWeeklyCalendarBusyBarView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +140,8 @@
 		8806AB4F1AA8567D00E6A50D /* CCWeeklyCalendar */ = {
 			isa = PBXGroup;
 			children = (
+				88208BBB1AAEF22A00A0E82A /* CCWeeklyCalendarBusyBarView.h */,
+				88208BBC1AAEF22A00A0E82A /* CCWeeklyCalendarBusyBarView.m */,
 				8806AB4C1AA84E5B00E6A50D /* CCWeeklyCalendarDayView.h */,
 				8806AB4D1AA84E5C00E6A50D /* CCWeeklyCalendarDayView.m */,
 				8806AB431AA8350E00E6A50D /* CCWeeklyCalendarView.h */,
@@ -251,6 +256,7 @@
 				8806AB4B1AA83B3500E6A50D /* NSDate+Utilities.m in Sources */,
 				8806AAF01AA6B71600E6A50D /* ViewController.m in Sources */,
 				8806AB4E1AA84E5C00E6A50D /* CCWeeklyCalendarDayView.m in Sources */,
+				88208BBD1AAEF22A00A0E82A /* CCWeeklyCalendarBusyBarView.m in Sources */,
 				8806AB451AA8350E00E6A50D /* CCWeeklyCalendarView.m in Sources */,
 				8806AAED1AA6B71600E6A50D /* AppDelegate.m in Sources */,
 				8806AAEA1AA6B71600E6A50D /* main.m in Sources */,

@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CCWeeklyCalendarBusyBarView.h"
 
 @interface ViewController : UIViewController
 
 @property (nonatomic, strong) IBOutlet UIDatePicker *datePicker;
+@property (nonatomic, strong) IBOutlet CCWeeklyCalendarBusyBarView *busyView;
+
 @end
 
