@@ -23,8 +23,14 @@
 @property (nonatomic, strong) NSMutableArray *dayCellViews;
 // 系统日历对象
 @property (nonatomic, strong) NSCalendar *calendar;
+// 中国日历
+@property (nonatomic, strong) NSCalendar *chineseCalendar;
+@property (nonatomic, strong) NSArray *chineseDays;
+
 // 是否需要响应手指离开scrollview的动作
 @property (nonatomic) BOOL shouldResponseToEndDraggingEvent;
+
+@property (nonatomic, strong) NSArray *weekDaySymbols;
 
 // 根据数据源数量返回`contentSize`
 - (CGSize)contentSizeForNumberOfDays:(NSUInteger)days;
@@ -33,6 +39,7 @@
 
 @implementation CCWeeklyCalendar
 
+#pragma mark - Getter
 
 - (CGFloat)dayViewWidth {
     
@@ -49,6 +56,35 @@
     return CGSizeMake(days * self.dayViewWidth, kHeightForDayView);
 }
 
+
+- (NSArray *)weekDaySymbols {
+    
+    if (!_weekDaySymbols) {
+        _weekDaySymbols = [self.calendar veryShortWeekdaySymbols];
+    }
+    
+    return _weekDaySymbols;
+}
+
+- (NSArray *)chineseDays {
+    if (!_chineseDays) {
+        _chineseDays = [NSArray arrayWithObjects:@"初一", @"初二", @"初三", @"初四", @"初五", @"初六", @"初七", @"初八", @"初九", @"初十",@"十一", @"十二", @"十三", @"十四", @"十五", @"十六", @"十七", @"十八", @"十九", @"二十",@"廿一", @"廿二", @"廿三", @"廿四", @"廿五", @"廿六", @"廿七", @"廿八", @"廿九", @"三十",  nil];
+    }
+    return _chineseDays;
+}
+
+- (NSString *)chineseCalendarDayWithDate:(NSDate *)date {
+    
+    unsigned unitFlags = NSCalendarUnitDay;
+    
+    NSDateComponents *localeComp = [self.chineseCalendar components:unitFlags fromDate:date];
+    NSString *d_str = [self.chineseDays objectAtIndex:localeComp.day-1];
+    
+    return d_str;
+}
+
+
+#pragma mark
 
 // 最左侧日期
 - (NSDate *)leftDateOnScreen {
@@ -108,20 +144,22 @@
         
         NSDate *date = self.dates[i];
         
-        dayCellView.dayLabel.text = [NSString stringWithFormat:@"%ld月%ld日",(long)date.month, (long)date.day];
+        dayCellView.dayLabel.text = [NSString stringWithFormat:@"%ld", (long)date.day];
+        dayCellView.weekDayLabel.text = [NSString stringWithFormat:@"%@", self.weekDaySymbols[date.weekday - 1]];
+        dayCellView.bottomLabel.text = [self chineseCalendarDayWithDate:date];
         
         // 数据源交互
         NSInteger eventsTotal = [self .dataSource weeklyCalendar:self numberOfEventsOnDate:date];
         
         if (eventsTotal > 4) {
             dayCellView.busyBarView.percent = 1;
-            dayCellView.busyBarView.barColor = [UIColor redColor];
+            dayCellView.busyBarView.barColor = [UIColor colorWithRed:0.99 green:0.44 blue:0.45 alpha:1];
         }else if (eventsTotal > 2) {
             dayCellView.busyBarView.percent = 0.5;
-            dayCellView.busyBarView.barColor = [UIColor yellowColor];
+            dayCellView.busyBarView.barColor = [UIColor colorWithRed:0.99 green:0.71 blue:0.44 alpha:1];
         }else if (eventsTotal > 0) {
             dayCellView.busyBarView.percent = 0.2;
-            dayCellView.busyBarView.barColor = [UIColor greenColor];
+            dayCellView.busyBarView.barColor = [UIColor colorWithRed:0.53 green:0.8 blue:0.99 alpha:1];
         }
     }
 }
@@ -140,6 +178,7 @@
 
         self.today = [[NSDate date] dateAtStartOfDay];
         self.calendar = [NSCalendar currentCalendar];
+        self.chineseCalendar = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierChinese];
         
         self.calendarView = [[CCWeeklyCalendarView alloc] initWithFrame:CGRectZero];
         self.calendarView.delegate = self;

@@ -11,7 +11,7 @@
 
 static NSInteger const kDaysPerPage = 5;                    //每页所显示的`日`视图个数
 static NSInteger const kNumberOfDaysInScrollView = 15;      //scrollView上存在的`日`视图总数
-static CGFloat   const kHeightForDayView = 130.0f;           //`日`视图的高度
+static CGFloat   const kHeightForDayView = 65.0f;           //`日`视图的高度
 
 @class CCWeeklyCalendar;
 
