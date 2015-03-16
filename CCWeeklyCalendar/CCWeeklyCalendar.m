@@ -212,6 +212,11 @@
 }
 
 
+- (void)reload {
+    [self resetDayCellViews];
+}
+
+
 - (instancetype)init {
     
     self = [super init];

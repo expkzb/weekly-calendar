@@ -65,4 +65,6 @@ typedef NS_ENUM(NSUInteger, CCWeeklyCalendarPaidLeaveType) {
 // 滑动到某一天
 - (void)scrollToDate:(NSDate *)date animate:(BOOL)animate;
 
+- (void)reload;
+
 @end
