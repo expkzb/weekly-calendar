@@ -58,4 +58,16 @@
     return fakeEventsTotal;
 }
 
+- (BOOL)weeklyCalendar:(CCWeeklyCalendar *)calendar shouldShowRightLabelForDate:(NSDate *)date {
+    return YES;
+}
+
+- (CCWeeklyCalendarPaidLeaveType)weeklyCalendar:(CCWeeklyCalendar *)calendar paidLeaveTypeForDate:(NSDate *)date {
+    return CCWeeklyCalendarPaidLeaveTypeRest;
+}
+
+- (NSString *)weeklyCalendar:(CCWeeklyCalendar *)calendar holidayStringForDate:(NSDate *)date {
+    return nil;
+}
+
 @end

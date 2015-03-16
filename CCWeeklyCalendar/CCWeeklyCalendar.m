@@ -146,9 +146,9 @@
         
         dayCellView.dayLabel.text = [NSString stringWithFormat:@"%ld", (long)date.day];
         dayCellView.weekDayLabel.text = [NSString stringWithFormat:@"%@", self.weekDaySymbols[date.weekday - 1]];
-        dayCellView.bottomLabel.text = [self chineseCalendarDayWithDate:date];
         
-        // 数据源交互
+        
+        // 繁忙程度
         NSInteger eventsTotal = [self .dataSource weeklyCalendar:self numberOfEventsOnDate:date];
         
         if (eventsTotal > 4) {
@@ -161,6 +161,43 @@
             dayCellView.busyBarView.percent = 0.2;
             dayCellView.busyBarView.barColor = [UIColor colorWithRed:0.53 green:0.8 blue:0.99 alpha:1];
         }
+        
+        // 调休状态
+        BOOL shouldShowRightLabel = [self.dataSource weeklyCalendar:self shouldShowRightLabelForDate:date];
+        dayCellView.rightLabel.hidden = !shouldShowRightLabel;
+        
+        CCWeeklyCalendarPaidLeaveType type = [self.dataSource weeklyCalendar:self paidLeaveTypeForDate:date];
+        
+        switch (type) {
+            case CCWeeklyCalendarPaidLeaveTypeRest:
+            {
+                dayCellView.rightLabel.text = @"休";
+                [dayCellView.rightLabel setTextColor:[UIColor colorWithRed:0.99 green:0.17 blue:0.2 alpha:1]];
+            }
+                break;
+            case CCWeeklyCalendarPaidLeaveTypeWork:
+            {
+                dayCellView.rightLabel.text = @"班";
+                [dayCellView.rightLabel setTextColor:[UIColor colorWithRed:0.06 green:0.38 blue:0.64 alpha:1]];
+            }
+                break;
+            default:
+                dayCellView.rightLabel.text = @"";
+                break;
+        }
+        
+        
+        // 节假日
+        NSString *holidayString = [self.dataSource weeklyCalendar:self holidayStringForDate:date];
+        
+        if (nil == holidayString) {
+            dayCellView.bottomLabel.text = [self chineseCalendarDayWithDate:date];
+            [dayCellView.bottomLabel setTextColor:[UIColor colorWithRed:0.73 green:0.73 blue:0.73 alpha:1]];
+        }else {
+            dayCellView.bottomLabel.text = holidayString;
+            [dayCellView.bottomLabel setTextColor:[UIColor colorWithRed:0.11 green:0.59 blue:0.99 alpha:1]];
+        }
+        
     }
 }
 

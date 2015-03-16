@@ -28,9 +28,28 @@ static CGFloat   const kHeightForDayView = 65.0f;           //`日`视图的高�
 
 
 #pragma mark - Datasource
+
+// 调休类型 “班/休"
+typedef NS_ENUM(NSUInteger, CCWeeklyCalendarPaidLeaveType) {
+    CCWeeklyCalendarPaidLeaveTypeNone = 0,
+    CCWeeklyCalendarPaidLeaveTypeWork,
+    CCWeeklyCalendarPaidLeaveTypeRest
+};
+
 @protocol CCWeeklyCalendarDataSource <NSObject>
+
 // 特定日期有多少事件
 - (NSInteger)weeklyCalendar:(CCWeeklyCalendar *)calendar numberOfEventsOnDate:(NSDate *)date;
+
+// 是否显示右侧label，目前用于指示节假日调休安排 “班/休“
+- (BOOL)weeklyCalendar:(CCWeeklyCalendar *)calendar shouldShowRightLabelForDate:(NSDate *)date;
+
+// 右侧label显示的类型
+- (CCWeeklyCalendarPaidLeaveType)weeklyCalendar:(CCWeeklyCalendar *)calendar paidLeaveTypeForDate:(NSDate *)date;
+
+// 节假日
+- (NSString *)weeklyCalendar:(CCWeeklyCalendar *)calendar holidayStringForDate:(NSDate *)date;
+
 @end
 
 

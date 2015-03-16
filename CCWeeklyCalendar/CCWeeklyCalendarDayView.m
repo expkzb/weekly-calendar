@@ -14,6 +14,7 @@ static CGFloat const kDayLabelHeight = 12.0f; //日期label高度
 static CGFloat const kWeekDayLabelHeight = 10.0f; //星期几label高度
 static CGFloat const kTopBottomPadding = 6.0f; //上下留白
 static CGFloat const kBottomLabelHeight = 10.0f; //底部label高度
+static CGFloat const kRightLabelWidth = 10.0f; //右侧label宽度
 
 @implementation CCWeeklyCalendarDayView
 
@@ -67,6 +68,20 @@ static CGFloat const kBottomLabelHeight = 10.0f; //底部label高度
 }
 
 
+// 右侧label，用于显示节假日调休安排，“上班/休息”
+- (void)setupRightLabel {
+    
+    self.rightLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width - kRightLabelWidth - kTopBottomPadding, self.bounds.size.height/2.0 - kRightLabelWidth/2.0, kRightLabelWidth, kRightLabelWidth)];
+    
+    [self.rightLabel setFont:[UIFont fontWithName:@"Arial" size:10.0f]];
+    [self.rightLabel setTextAlignment:NSTextAlignmentCenter];
+    [self.rightLabel setTextColor:[UIColor redColor]];
+    self.rightLabel.text = @"班";
+    
+    [self addSubview:_rightLabel];
+}
+
+
 - (void)setupBusyBarView {
     
     CGRect rect = CGRectMake(kBorderWidth / 2.0f,
@@ -89,6 +104,7 @@ static CGFloat const kBottomLabelHeight = 10.0f; //底部label高度
         [self setupBusyBarView];
         [self setupWeekDayLabel];
         [self setupBottomLabel];
+        [self setupRightLabel];
     }
     
     return self;
