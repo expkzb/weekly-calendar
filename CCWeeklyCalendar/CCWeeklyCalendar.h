@@ -65,6 +65,10 @@ typedef NS_ENUM(NSUInteger, CCWeeklyCalendarPaidLeaveType) {
 // 滑动到某一天
 - (void)scrollToDate:(NSDate *)date animate:(BOOL)animate;
 
+/**
+ * 重新加载
+ * 每次从后台唤醒时应调用一次
+*/
 - (void)reload;
 
 @end
