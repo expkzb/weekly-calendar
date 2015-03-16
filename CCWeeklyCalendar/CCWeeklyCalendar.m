@@ -174,7 +174,7 @@
         self.dayViewWidth = 0;
         self.dates = [[NSMutableArray alloc] initWithCapacity:kNumberOfDaysInScrollView];
         self.dayCellViews = [[NSMutableArray alloc] initWithCapacity:kNumberOfDaysInScrollView];
-        self.shouldResponseToEndDraggingEvent = NO;
+        self.shouldResponseToEndDraggingEvent = YES;
 
         self.today = [[NSDate date] dateAtStartOfDay];
         self.calendar = [NSCalendar currentCalendar];
