@@ -83,6 +83,9 @@
     return d_str;
 }
 
+- (NSDate *)today {
+    return [NSDate date].dateAtStartOfDay;
+}
 
 #pragma mark
 
@@ -198,6 +201,13 @@
             [dayCellView.bottomLabel setTextColor:[UIColor colorWithRed:0.11 green:0.59 blue:0.99 alpha:1]];
         }
         
+        // “今天”圈
+        if ([self.today isEqualToDate:date]) {
+            [dayCellView addTodayCircle];
+        }else {
+            [dayCellView removeTodayCircle];
+        }
+        
     }
 }
 
@@ -213,7 +223,6 @@
         self.dayCellViews = [[NSMutableArray alloc] initWithCapacity:kNumberOfDaysInScrollView];
         self.shouldResponseToEndDraggingEvent = YES;
 
-        self.today = [[NSDate date] dateAtStartOfDay];
         self.calendar = [NSCalendar currentCalendar];
         self.chineseCalendar = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierChinese];
         
@@ -224,7 +233,7 @@
         
         [self addDayCellViews];
         
-        [self scrollToDate:_today animate:NO];
+        [self scrollToDate:self.today animate:NO];
     }
     
     return self;

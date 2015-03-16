@@ -15,9 +15,43 @@ static CGFloat const kWeekDayLabelHeight = 10.0f; //星期几label高度
 static CGFloat const kTopBottomPadding = 6.0f; //上下留白
 static CGFloat const kBottomLabelHeight = 10.0f; //底部label高度
 static CGFloat const kRightLabelWidth = 10.0f; //右侧label宽度
+static CGFloat const kTodayCircleWidth = 20.0f; //“今天”蓝色圈的宽度
+static CGFloat const kTodayCircleTextHeight = 10.0f; // “今”文字高度
+static NSInteger const kTodayCircleTag = 1998; // “今天”蓝色圈视图tag
+
+
+@implementation CCWeeklyCalendarTodayCircle
+
+- (void)drawRect:(CGRect)rect {
+    
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    
+    // setup the size
+    CGRect circleRect = CGRectMake( 0, 0, rect.size.width, rect.size.height);
+    
+    CGContextSetFillColorWithColor(ctx, [UIColor whiteColor].CGColor);
+    CGContextFillRect(ctx, rect);
+    
+    // Fill
+    CGContextSetFillColorWithColor(ctx, [UIColor colorWithRed:0.11 green:0.59 blue:0.99 alpha:1].CGColor);
+    CGContextFillEllipseInRect(ctx, circleRect);
+    
+    UIFont* font = [UIFont fontWithName:@"Arial" size:kTodayCircleTextHeight];
+    UIColor* textColor = [UIColor whiteColor];
+    
+    NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+    [style setAlignment:NSTextAlignmentCenter];
+    
+    NSDictionary* stringAttrs = @{ NSFontAttributeName : font, NSForegroundColorAttributeName : textColor, NSParagraphStyleAttributeName: style};
+    NSAttributedString* attrStr = [[NSAttributedString alloc] initWithString:@"今" attributes:stringAttrs];
+    
+    [attrStr drawInRect:CGRectMake(0.0f, rect.size.height/2.0f - kTodayCircleTextHeight/2.0f, rect.size.width, kTodayCircleWidth)];
+}
+
+@end
+
 
 @implementation CCWeeklyCalendarDayView
-
 
 - (void)setupDayLabel {
     
@@ -63,6 +97,7 @@ static CGFloat const kRightLabelWidth = 10.0f; //右侧label宽度
     [self.bottomLabel setFont:[UIFont fontWithName:@"Arial" size:11.0f]];
     [self.bottomLabel setTextColor:[UIColor colorWithRed:0.73 green:0.73 blue:0.73 alpha:1]];
     [self.bottomLabel setTextAlignment:NSTextAlignmentCenter];
+    self.bottomLabel.adjustsFontSizeToFitWidth = YES;
     
     [self addSubview:_bottomLabel];
 }
@@ -76,7 +111,6 @@ static CGFloat const kRightLabelWidth = 10.0f; //右侧label宽度
     [self.rightLabel setFont:[UIFont fontWithName:@"Arial" size:10.0f]];
     [self.rightLabel setTextAlignment:NSTextAlignmentCenter];
     [self.rightLabel setTextColor:[UIColor redColor]];
-    self.rightLabel.text = @"班";
     
     [self addSubview:_rightLabel];
 }
@@ -94,6 +128,22 @@ static CGFloat const kRightLabelWidth = 10.0f; //右侧label宽度
     [self addSubview:_busyBarView];
 }
 
+- (void)addTodayCircle {
+    
+    if ([self viewWithTag:kTodayCircleTag]) return;
+    
+    CGRect rect = CGRectMake(0, 0, kTodayCircleWidth, kTodayCircleWidth);
+    self.todayCircle = [[CCWeeklyCalendarTodayCircle alloc] initWithFrame:rect];
+    self.todayCircle.center = self.dayLabel.center;
+    self.todayCircle.tag = kTodayCircleTag;
+    [self addSubview:_todayCircle];
+}
+
+- (void)removeTodayCircle {
+    if ([self viewWithTag:kTodayCircleTag]) {
+        [self.todayCircle removeFromSuperview];
+    }
+}
 
 - (instancetype)initWithFrame:(CGRect)frame {
     
