@@ -163,6 +163,8 @@
         }else if (eventsTotal > 0) {
             dayCellView.busyBarView.percent = 0.2;
             dayCellView.busyBarView.barColor = [UIColor colorWithRed:0.53 green:0.8 blue:0.99 alpha:1];
+        }else {
+            dayCellView.busyBarView.percent = 0.0f;
         }
         
         // 调休状态
